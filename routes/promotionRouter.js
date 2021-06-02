@@ -14,7 +14,7 @@ promotionsRouter
       })
       .catch((err) => next(err));
   })
-  .post(authenticate.verifyUser, (req, res, next) => {
+  .post(authenticate.verifyAdmin, (req, res, next) => {
     Promotion.create(req.body)
       .then((promotion) => {
         res.statusCode = 200;
@@ -27,7 +27,7 @@ promotionsRouter
     res.statusCode = 403;
     res.end("PUT operation not supported on /promotions");
   })
-  .delete(authenticate.verifyUser, (req, res) => {
+  .delete(authenticate.verifyAdmin, (req, res) => {
     Promotion.deleteMany()
       .then((response) => {
         res.statusCode = 200;
@@ -54,7 +54,7 @@ promotionsRouter
       `Will add the promotionId: ${req.body.name} with description: ${req.body.description}`
     );
   })
-  .put(authenticate.verifyUser, (req, res) => {
+  .put(authenticate.verifyAdmin, (req, res) => {
     Promotion.findByIdAndUpdate(
       req.params.promotionId,
       {
